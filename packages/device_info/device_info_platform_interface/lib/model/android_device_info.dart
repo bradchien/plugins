@@ -29,6 +29,9 @@ class AndroidDeviceInfo {
     this.isPhysicalDevice,
     this.androidId,
     List<String> systemFeatures,
+    this.densityDpi,
+    this.widthPixels,
+    this.heightPixels
   })  : supported32BitAbis = List<String>.unmodifiable(supported32BitAbis),
         supported64BitAbis = List<String>.unmodifiable(supported64BitAbis),
         supportedAbis = List<String>.unmodifiable(supportedAbis),
@@ -94,6 +97,13 @@ class AndroidDeviceInfo {
   /// The Android hardware device ID that is unique between the device + user and app signing.
   final String androidId;
 
+  final int densityDpi;
+
+  final int widthPixels;
+
+  final int heightPixels;
+
+
   /// Describes what features are available on the current device.
   ///
   /// This can be used to check if the device has, for example, a front-facing
@@ -135,7 +145,10 @@ class AndroidDeviceInfo {
       isPhysicalDevice: map['isPhysicalDevice'],
       androidId: map['androidId'],
       systemFeatures: _fromList(map['systemFeatures'] ?? []),
-    );
+      densityDpi: map['densityDpi'],
+      widthPixels: map['widthPixels'],
+      heightPixels: map['heightPixels'],
+   );
   }
 
   /// Deserializes message as List<String>

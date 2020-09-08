@@ -24,14 +24,16 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
 
   private final ContentResolver contentResolver;
   private final PackageManager packageManager;
+  private final DisplayMetrics displayMetrics;
 
   /** Substitute for missing values. */
   private static final String[] EMPTY_STRING_LIST = new String[] {};
 
   /** Constructs DeviceInfo. {@code contentResolver} and {@code packageManager} must not be null. */
-  MethodCallHandlerImpl(ContentResolver contentResolver, PackageManager packageManager) {
+  MethodCallHandlerImpl(ContentResolver contentResolver, PackageManager packageManager, DisplayMetrics displayMetrics) {
     this.contentResolver = contentResolver;
     this.packageManager = packageManager;
+    this.displayMetrics = displayMetrics;
   }
 
   @Override
@@ -77,6 +79,10 @@ class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
       version.put("release", Build.VERSION.RELEASE);
       version.put("sdkInt", Build.VERSION.SDK_INT);
       build.put("version", version);
+
+      build.put("densityDpi", displayMetrics.densityDpi);
+      build.put("widthPixels", displayMetrics.widthPixels);
+      build.put("heightPixels", displayMetrics.heightPixels);
 
       result.success(build);
     } else {
